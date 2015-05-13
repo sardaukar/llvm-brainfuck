@@ -251,8 +251,7 @@ end
 
 
 #We are targeting x86 code
-LLVM.init_x86
-
+LLVM::Target.init('X86')
 
 #Create a new Module (All LLVM functions need to be inside of a module
 mod = LLVM::Module.new("brainfuck")
@@ -299,5 +298,5 @@ jit.run_function(mod.functions["main"]).to_i
 #Generate a native binary
 puts "compiling to native"
 mod.write_bitcode(File.open("test.bc","w"))
-system("llc test.bc")
+system("llc-3.5 test.bc")
 system("gcc test.s -o test.out")
